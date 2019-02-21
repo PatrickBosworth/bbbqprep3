@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Login Page
+    link(href='https://www.w3schools.com/w3css/4/w3.css', rel='stylesheet')
+    link(href='/css/pbstyle.css', rel='stylesheet')
+    style.
+  body
+    form(action='/login' method= 'POST')
+      .container
+        label(for='uname')
+          b Username
+        input(name='username', required='', type='text', placeholder='Enter Username')
+        label(for='psw')
+          b Password
+        input(name='password', required='', type='password', placeholder='Enter Password')
+        label(for='orgname')
+          b Organisation
+        input(name='orgname', required='', type='text', placeholder='Enter Organisation')
+        button(type='submit') Login
+        label
+          input(name='remember', type='checkbox', checked='checked')
+          |  Remember me
+      .container(style='background-color:#f1f1f1')
+        button.cancelbtn(type='button') Cancel
+        span.psw
+          | Forgot 
+          a(href='#') password?

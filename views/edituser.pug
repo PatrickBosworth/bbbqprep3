@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Edit User Page
+    link(href='https://www.w3schools.com/w3css/4/w3.css', rel='stylesheet')
+    link(href='/css/pbstyle.css', rel='stylesheet')
+    style.
+  body
+    form(action='/user/update' method='POST')
+      .container
+        label(for='uname')
+        b UserID
+        input(name='userid', type='text', value=userdetails.userid readonly)
+        b Username
+        input(name='username', required='', type='text', value=userdetails.username)
+        b Firstname
+        input(name='firstName', required='', type='text', value=userdetails.firstName)
+        b Lastname
+        input(name='lastName', required='', type='text', value=userdetails.lastName)
+        label(for='psw')
+          b Password
+        input(name='password', required='', type='password', value=userdetails.password)
+        label(for='organisation')
+          b Organisation
+        input(name='organisation', required='', type='text', value=userdetails.organisation)
+        button(type='submit') Save User
+      .container(style='background-color:#f1f1f1')
+        a.cancelbtn(href="/userlist", type='button') Cancel
