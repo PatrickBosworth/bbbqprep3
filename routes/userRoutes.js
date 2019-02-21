@@ -15,19 +15,19 @@ users.use(bodyParser.urlencoded( { extended: false }));
 users.get('/userlist', userController.userlist)
 
   //get form for creating user
-//users.get('/create', userController.createget);
+users.get('/create', userController.createget);
 
 // post update
-//users.post('/create', userController.createpost);
+users.post('/create', userController.createpost);
 
 //render pug update page
-//users.get('/update', userController.updateget);
+users.get('/update', userController.updateget);
 
 //update details for a specific user
-//users.post('/update', userController.updatepost);
+users.post('/update', userController.updatepost);
 
 // delete a specific user
-//users.get('/delete', userController.delete);
+users.get('/delete', userController.delete);
 
 
 
