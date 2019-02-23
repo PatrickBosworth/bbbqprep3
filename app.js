@@ -1,12 +1,13 @@
 var express = require('express');
+var session = require('express-session');
 var app = express();
 var util = require('util');
 const path = require('path');
 const routes = require('./routes/index')
 var {mongoose} = require('./db/mongoose');
 var passport = require('passport')
-var LocalStrategy = require('passport-local').Strategy;
-var flash = require('connect-flash');
+//var LocalStrategy = require('passport-local').Strategy;
+//var flash = require('connect-flash');
 
 
 //require('./config/passport')(passport);
@@ -19,11 +20,15 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use(require('express-session')({
-    secret : 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}))
+
+
+//express.session must be enabled
+app.use(session({ 
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true 
+}));
+
 
 // app.use(passport.initialize());
 // app.use(passport.session());

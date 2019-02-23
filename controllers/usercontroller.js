@@ -3,6 +3,9 @@ const users = express.Router();
 var userController = require('../controllers/usercontroller');
 var mongoose = require('mongoose');
 var {User} = require('../models/user');
+var encrypt = require('../bcrypt/bcrypt');
+
+
 
 
  var user = {};
@@ -30,12 +33,13 @@ user.createpost = function (req, res) {
         username: req.body.username,
         firstName: req.body.firstname,
         lastName: req.body.lastname,
+        password: encrypt.encryptpassword(req.body.password),
         organisation: req.body.organisation,
         userid: req.body.userid
     })
-    console.log(req.body);
+
+    //user.password = encrypt.encryptpassword(user.password)
     user.save().then((doc)=> {
-        //res.send(user);
         res.redirect('/user/userlist');
     }, (e) => {
         res.status(400).send(e);
@@ -59,7 +63,8 @@ user.updatepost = function (req,res) {
             username: req.body.username,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            organisation: req.body.organisation            
+            organisation: req.body.organisation,
+            password: encrypt.encryptpassword(req.body.password)            
         }
     }, (err, result) => {
         if (err) { return res.send(err) }
