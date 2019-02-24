@@ -36,9 +36,17 @@ router.use('/user', userRoutes);
 router.post('/login', 
     passport.authenticate('local', { failureRedirect: '/login' } ),
     function(req, res) {
-    res.redirect('/user/userlist');
+    res.redirect('/authrequired');
 });
 
-
+router.get('/authrequired', (req, res) => {
+    console.log('inside authenticated page')
+    if(req.isAuthenticated()) {
+        res.send('you are authenticated')
+        } else {
+            console.log('not autehenticated');
+            res.redirect('/login');
+        }
+})
 
 module.exports = router;

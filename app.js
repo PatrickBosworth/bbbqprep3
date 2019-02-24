@@ -11,7 +11,7 @@ var {mongoose} = require('./db/mongoose');
 var passport = require('passport')
 var uuid = require('uuid/v4');
 var morgan = require('morgan');
-//var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 //var flash = require('connect-flash');
 
 
@@ -28,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(morgan('combined'));
 
 //enable body parser and cookie parser
-app.use(cookieParser);
-app.use(bodyParser.urlencoded({ extended: true}));
+//app.use(cookieParser);
+//app.use(bodyParser.urlencoded({ extended: true}));
 
 //express.session must be enabled
 app.use(session({
@@ -40,7 +40,7 @@ app.use(session({
     },
     secret: 'keyboard cat',
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: false ,
     store: new fileStore()
 }));
 app.use(express.urlencoded({ extended: true })); // express body-parser
