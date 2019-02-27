@@ -30,6 +30,15 @@ passport.use(new LocalStrategy(
   }
 ));
 
-
+passport.authcheck = function (req, res, next) {
+  if (req.isAuthenticated()) {
+    console.log("checking if user is authenticated");
+    return next();
+  }
+  else {
+    console.log('this is the passport.authcheck function')
+    res.redirect('/login');
+  }
+}
 
 module.exports = passport

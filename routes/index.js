@@ -14,10 +14,7 @@ router.use(bodyParser.urlencoded( { extended: false }))
 var userRoutes = require('./userRoutes');
 
 
-router.get('/', function(req, res) {
-    console.log(req.sessionID);
-    res.send("blahdiblah");
-})
+router.get('/', function(req, res) { console.log(req.sessionID); res.send("blahdiblah");})
 
 router.get('/dostuff', function (req, res) {
     console.log("inside the page callback function")
@@ -25,12 +22,14 @@ router.get('/dostuff', function (req, res) {
     res.send("somestuff");
 })
 
+router.get('/dostuff2', passportauth.authcheck, function(req, res) { res.send('happy times')});
+
 router.get('/login', function (req, res) {   res.render('login');})
 
 router.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
 router.get('/error', (req, res) => res.send("error logging in"));
 
-router.use('/user', userRoutes);
+router.use('/user', passport.authcheck, userRoutes);
 
 
 router.post('/login', 
@@ -39,14 +38,15 @@ router.post('/login',
     res.redirect('/authrequired');
 });
 
-router.get('/authrequired', (req, res) => {
+router.get('/authrequired', passportauth.authcheck, (req, res) => {
     console.log('inside authenticated page')
-    if(req.isAuthenticated()) {
-        res.send('you are authenticated')
-        } else {
-            console.log('not autehenticated');
-            res.redirect('/login');
-        }
-})
+  //   if(req.isAuthenticated()) {
+         res.redirect('/user/userlist')
+    //     } else {
+      //       console.log('not autehenticated');
+        //    res.redirect('/login');
+      //  }
+}
+)
 
 module.exports = router;
