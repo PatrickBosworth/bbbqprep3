@@ -12,10 +12,10 @@ var passport = require('passport')
 var uuid = require('uuid/v4');
 var morgan = require('morgan');
 var LocalStrategy = require('passport-local').Strategy;
+var MongoDBStore = require('connect-mongodb-session')(session);
 //var flash = require('connect-flash');
+var sessiondbconf = require('./config/sessionStoreDBConfig');
 
-
-//require('./config/passport')(passport);
 
 // use Pug
 app.set("view engine", "pug");
@@ -27,6 +27,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 //enable morgan logging
 //app.use(morgan('combined'));
 
+//enable session store in MongoDB
+// var numExpectedSources = 2;
+// var store = new MongoDBStore(
+//   {
+//     uri: 'mongodb://localhost:27000/connect_mongodb_session_test?connectTimeoutMS=10',
+//     databaseName: 'CAVI',
+//     collection: 'userSessions'
+//   },
+//   function(error) {
+//     console.log(error)
+//   });
+ 
+// store.on('error', function(error) {
+//   console.log(error)
+// });
+
 
 //express.session must be enabled
 app.use(session({
@@ -37,7 +53,8 @@ app.use(session({
     },
     secret: 'keyboard cat',
     resave: true,
-    saveUninitialized: false 
+    saveUninitialized: true,
+    store: sessiondbconf.store
 //    store: new fileStore()
 }));
 app.use(express.urlencoded({ extended: true })); // express body-parser
