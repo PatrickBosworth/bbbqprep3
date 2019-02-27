@@ -28,8 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(morgan('combined'));
 
 
-
-
 //express.session must be enabled
 app.use(session({
     genid: (req) => { 
