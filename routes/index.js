@@ -38,15 +38,6 @@ router.post('/login',
     res.redirect('/authrequired');
 });
 
-router.get('/authrequired', passportauth.authcheck, (req, res) => {
-    console.log('inside authenticated page')
-  //   if(req.isAuthenticated()) {
-         res.redirect('/user/userlist')
-    //     } else {
-      //       console.log('not autehenticated');
-        //    res.redirect('/login');
-      //  }
-}
-)
+router.get('/authrequired', passportauth.authcheck, (req, res) => { res.redirect('/user/userlist')})
 
 module.exports = router;
