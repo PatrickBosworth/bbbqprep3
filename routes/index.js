@@ -31,6 +31,15 @@ router.get('/error', (req, res) => res.send("error logging in"));
 
 router.use('/user', passport.authcheck, userRoutes);
 
+// app.get('/logout', function(req, res){ req.logout();
+//     res.redirect('/login');
+//   });
+
+  router.get('/logout', function (req, res){
+    req.session.destroy(function (err) {
+      res.redirect('/login'); //Inside a callback… bulletproof!
+    });
+  });
 
 router.post('/login', 
     passport.authenticate('local', { failureRedirect: '/login' } ),
