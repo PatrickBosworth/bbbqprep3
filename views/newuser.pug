@@ -9,8 +9,6 @@ html
     form(action='/user/create' method="post")
       .container
         label(for='uname')
-        b Define new User ID number
-        input(name='userid', required='', type='text', placeholder='Create a unique user number')
         b Define new Username
         input(name='username', required='', type='text', placeholder='Create a username')
         b Firstname
@@ -25,4 +23,4 @@ html
         input(name='organisation', required='', type='text', placeholder='Enter Organisation')
         button(type='submit') Create User
       .container(style='background-color:#f1f1f1')
-        a.cancelbtn(href="/userlist", type='button') Cancel
+        a.cancelbtn(href="/user/userlist", type='button') Cancel
