@@ -33,8 +33,8 @@ user.createpost = function (req, res) {
         firstName: req.body.firstname,
         lastName: req.body.lastname,
         password: encrypt.encryptpassword(req.body.password),
-        organisation: req.body.organisation,
-        userid: req.body.userid
+        organisation: req.body.organisation//,
+        //userid: req.body.userid
     })
 
     //user.password = encrypt.encryptpassword(user.password)
