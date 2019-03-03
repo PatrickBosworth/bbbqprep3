@@ -32,7 +32,7 @@ user.createpost = function (req, res) {
         username: req.body.username,
         firstName: req.body.firstname,
         lastName: req.body.lastname,
-        password: encrypt.encryptpassword(req.body.password),
+        password: encrypt.encryptpassword2(req.body.password),
         organisation: req.body.organisation,
         userid: req.body.userid
     })
@@ -63,7 +63,7 @@ user.updatepost = function (req,res) {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             organisation: req.body.organisation,
-            password: encrypt.encryptpassword(req.body.password)            
+            password: encrypt.encryptpassword6(req.body.password)            
         }
     }, (err, result) => {
         if (err) { return res.send(err) }
