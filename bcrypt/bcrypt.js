@@ -12,12 +12,21 @@ encrypt.encryptpassword = function (password) {
     return hash;
 }
 
+
 //Async callback version - not yet working.
 encrypt.encryptpassword2 =  function(password) {
     var salt = bcrypt.genSaltSync(10); 
     console.log("this is salt: " + salt);
     console.log(password)
-    bcrypt.hash(password, salt, ( function(hash) {console.log("this is hash: " + this.hash)}))
+    var hashedpwd = bcrypt.hash(password, salt, ( function(err, hash) {
+        if (err) { console.log(err)}
+        else {
+        console.log("this is hash: " + hash)
+        hashedpwd = hash;
+        }
+    }))
+    console.log("final hashedpwd " + hashedpwd) //returns undefined
+    return hashedpwd;
 }
 
 //Async promises version - not working
@@ -25,12 +34,14 @@ encrypt.encryptpassword4 = function(password) {
    var hashedpwd = '';
    bcrypt
     .hash(password, 10)
-    .then(hashedpwd => {
-        console.log("hash: " + hashedpwd)
-        return "hashedpwd";
+    .then((hash) => {
+        console.log("hash: " + hash)
+        hashedpwd = hash;
+        return;
     })
     .catch(console.log("not working"));
-return hashedpwd;
+    console.log("this is the final return hash: " + hashedpwd)
+    return hashedpwd;
 }
 
 
