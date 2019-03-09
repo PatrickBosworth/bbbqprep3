@@ -33,11 +33,15 @@ passport.use(new LocalStrategy({passReqToCallback: true},
 
 passport.authcheck = function (req, res, next) {
   if (req.isAuthenticated()) {
-    console.log("checking if user is authenticated");
+    console.log( req.user.organisation );
+    // need to put the check for administrator priveliges in here too
+    // check for admin priveliges!!!!
+    //
+    //
     return next();
   }
   else {
-    console.log('this is the passport.authcheck function')
+    //console.log('this is the passport.authcheck function')
     res.redirect('/login');
   }
 }

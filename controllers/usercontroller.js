@@ -12,8 +12,9 @@ var encrypt = require('../bcrypt/bcrypt');
 
  //Get list of all users
 user.userlist = function (req, res) {  
-    User.find()
+    User.find( { organisation: req.user.organisation })
         .then((userlist) => { res.render('userlist', {title: "Registrations List", userlist})
+        
            })
         .catch(() => {
             res.send("Sorry, no users!");
@@ -26,6 +27,9 @@ user.createget = function (req, res) {
     res.render('newuser');
 }
 
+convertcheckboxtobool = function(checkboxinput) { if (checkboxinput==="on") {return true} else { return false}}
+convertbooltocheckbox = function(dboutput) { if (dboutput === true) { return true.toString()} else {return false}}
+
 // post new user
 user.createpost = function (req, res) {
     var user = new User({
@@ -33,7 +37,10 @@ user.createpost = function (req, res) {
         firstName: req.body.firstname,
         lastName: req.body.lastname,
         password: encrypt.encryptpassword(req.body.password),
-        organisation: req.body.organisation//,
+      //  organisation: req.body.organisation,
+        organisation: req.user.organisation,
+        adminUser: convertcheckboxtobool(req.body.adminuser)
+//        adminUser: (req.body.adminUser) => { if (checkboxinput==="on") {return true} else { return false}}
         //userid: req.body.userid
     })
 
@@ -51,6 +58,11 @@ user.updateget = function (req,res) {
         if (err) {
             res.render('error', {})
         } else {
+           //userdetails.adminUserStr="";
+          // console.log(userdetails.adminUser);
+           if (userdetails.adminUser = true) {userdetails.adminUserStr = "true"} else {userdetails.adminUserStr = "false"}
+           console.log(userdetails.adminUserStr)
+           console.log(userdetails)
            res.render('edituser', {userdetails});
             }
         });    
@@ -58,11 +70,13 @@ user.updateget = function (req,res) {
 
 user.updatepost = function (req,res) {
     User.findOneAndUpdate({userid: req.body.userid}, {
+        
         $set: {
             username: req.body.username,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            organisation: req.body.organisation,
+           // organisation: req.body.organisation,
+
             password: encrypt.encryptpassword(req.body.password)            
         }
     }, (err, result) => {

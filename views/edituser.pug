@@ -22,7 +22,9 @@ html
         input(name='password', required='', type='password', value=userdetails.password)
         label(for='organisation')
           b Organisation
-        input(name='organisation', required='', type='text', value=userdetails.organisation)
+        input(name='organisation', required='', type='text', value=userdetails.organisation readonly)
+        b Administrative User 
+        input(type='checkbox', name='adminUserStr', checked=(true===false ? "checked" : userdetails.adminUserStr))
         button(type='submit') Save User
       .container(style='background-color:#f1f1f1')
-        a.cancelbtn(href="/userlist", type='button') Cancel
+        a.cancelbtn(href="/user/userlist", type='button') Cancel

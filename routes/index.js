@@ -11,31 +11,28 @@ var passportauth = require('../config/passport');
 
 router.use(bodyParser.urlencoded( { extended: false }))
 
+//define path to routes
 var userRoutes = require('./userRoutes');
+var caviRoutes = require('./caviRoutes');
 
-
+//route path for testing.
 router.get('/', function(req, res) { console.log(req.sessionID); res.send("blahdiblah");})
 
-router.get('/dostuff', function (req, res) {
-    console.log("inside the page callback function")
-    console.log(req.sessionID);
-    res.send("somestuff");
-})
+// router.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
+// router.get('/error', (req, res) => res.send("error logging in"));
 
-router.get('/dostuff2', passportauth.authcheck, function(req, res) { res.send('happy times')});
+
+//this is the authenticated user section.
+router.use('/user', passport.authcheck, userRoutes);
+
+//this is the authenticated cavi section.
+router.use('/cavi', passport.authcheck, caviRoutes);
+
+//all the  login routes. should probably be relocated under /auth at some point to keep this file neater.
 
 router.get('/login', function (req, res) {   res.render('login');})
 
-router.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
-router.get('/error', (req, res) => res.send("error logging in"));
-
-router.use('/user', passport.authcheck, userRoutes);
-
-// app.get('/logout', function(req, res){ req.logout();
-//     res.redirect('/login');
-//   });
-
-  router.get('/logout', function (req, res){
+router.get('/logout', function (req, res){
     req.session.destroy(function (err) {
       res.redirect('/login'); //Inside a callback… bulletproof!
     });

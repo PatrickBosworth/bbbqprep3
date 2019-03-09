@@ -24,6 +24,12 @@ UserSchema = mongoose.Schema({
     password: {
         type: String,
         default: "Passw0rd"
+    },
+    adminUser: {
+        type: Boolean
+    },
+    adminUserStr: {
+        type: String
     }
 
 })

@@ -19,8 +19,10 @@ html
         b Password
         input(name='password', required='', type='password', placeholder='Enter Password')
         label(for='organisation')
-        b Organisation
-        input(name='organisation', required='', type='text', placeholder='Enter Organisation')
+        //- b Organisation
+        //- input(name='organisation', required='', type='text', placeholder='Enter Organisation')
+        b Administrative User 
+        input(type='checkbox', name='adminuser', unchecked)
         button(type='submit') Create User
       .container(style='background-color:#f1f1f1')
         a.cancelbtn(href="/user/userlist", type='button') Cancel
