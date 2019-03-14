@@ -72,7 +72,7 @@ user.updatepost = function (req,res) {
             lastName: req.body.lastName,
            // organisation: req.body.organisation,
 
-            //password: encrypt.encryptpassword(req.body.password),
+            password: encrypt.encryptpassword(req.body.password),
             adminUser: convertcheckboxtobool(req.body.adminuser)            
         }
     }, (err, result) => {
