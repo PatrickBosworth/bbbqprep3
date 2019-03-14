@@ -23,7 +23,9 @@ router.get('/', function(req, res) { console.log(req.sessionID); res.send("blahd
 
 
 //this is the authenticated user section.
-router.use('/user', passport.authcheck, userRoutes);
+router.use('/user',
+       passport.authcheck,
+      userRoutes);
 
 //this is the authenticated cavi section.
 router.use('/cavi', passport.authcheck, caviRoutes);

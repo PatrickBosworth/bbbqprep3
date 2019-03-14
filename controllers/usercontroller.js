@@ -58,11 +58,6 @@ user.updateget = function (req,res) {
         if (err) {
             res.render('error', {})
         } else {
-           //userdetails.adminUserStr="";
-          // console.log(userdetails.adminUser);
-           if (userdetails.adminUser = true) {userdetails.adminUserStr = "true"} else {userdetails.adminUserStr = "false"}
-           console.log(userdetails.adminUserStr)
-           console.log(userdetails)
            res.render('edituser', {userdetails});
             }
         });    
@@ -77,7 +72,8 @@ user.updatepost = function (req,res) {
             lastName: req.body.lastName,
            // organisation: req.body.organisation,
 
-            password: encrypt.encryptpassword(req.body.password)            
+            //password: encrypt.encryptpassword(req.body.password),
+            adminUser: convertcheckboxtobool(req.body.adminuser)            
         }
     }, (err, result) => {
         if (err) { return res.send(err) }

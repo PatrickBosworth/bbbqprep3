@@ -20,7 +20,8 @@ passport.deserializeUser(function(id, cb){
 
 passport.use(new LocalStrategy({passReqToCallback: true},
   function(req, username, password,  done) {
-      //  console.log(req.body.orgname);
+       console.log(req.body.orgname);
+       console.log(req.body.password);
       User.findOne({ username: username }, function(err, user) { if (err) {return done(err); }
         if (!user) { return done(null, false); }
         //console.log(user);
@@ -36,7 +37,7 @@ passport.authcheck = function (req, res, next) {
     console.log( req.user.organisation );
     // need to put the check for administrator priveliges in here too
     // check for admin priveliges!!!!
-    //
+    if (req.user.adminUser === true) {console.log("admin user")}
     //
     return next();
   }

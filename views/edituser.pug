@@ -24,7 +24,7 @@ html
           b Organisation
         input(name='organisation', required='', type='text', value=userdetails.organisation readonly)
         b Administrative User 
-        input(type='checkbox', name='adminUserStr', checked=(true===false ? "checked" : userdetails.adminUserStr))
+        input(type='checkbox', name='adminuser', checked=(true===false ? "checked" : userdetails.adminUser))
         button(type='submit') Save User
       .container(style='background-color:#f1f1f1')
         a.cancelbtn(href="/user/userlist", type='button') Cancel
