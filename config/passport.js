@@ -37,14 +37,11 @@ passport.authcheck = function (req, res, next) {
     console.log( req.user.organisation );
     // need to put the check for administrator priveliges in here too
     // check for admin priveliges!!!!
-    if (req.user.adminUser === true) {console.log("admin user")}
+    if (req.user.adminUser === true) {console.log("admin user")}  else { console.log("not an admin user");  return res.redirect('/error'); }
     //
     return next();
   }
-  else {
-    //console.log('this is the passport.authcheck function')
-    res.redirect('/login');
-  }
+
 }
 
 module.exports = passport
