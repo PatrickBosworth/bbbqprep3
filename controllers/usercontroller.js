@@ -12,6 +12,7 @@ var encrypt = require('../bcrypt/bcrypt');
 
  //Get list of all users
 user.userlist = function (req, res) {  
+    if (req.user.organisation !== "SU") {
     User.find( { organisation: req.user.organisation })
         .then((userlist) => { res.render('userlist', {title: "Registrations List", userlist})
         
@@ -19,7 +20,17 @@ user.userlist = function (req, res) {
         .catch(() => {
             res.send("Sorry, no users!");
         }) 
-    
+    }
+    else
+    {
+        User.find()
+        .then((userlist) => { res.render('userlist', {title: "Registrations List", userlist})
+        
+           })
+        .catch(() => {
+            res.send("Sorry, no users!");
+        }) 
+    }
     }
 
 // get form for creation of new user

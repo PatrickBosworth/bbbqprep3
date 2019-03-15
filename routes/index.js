@@ -18,8 +18,8 @@ var caviRoutes = require('./caviRoutes');
 //route path for testing.
 router.get('/', function(req, res) { console.log(req.sessionID); res.send("blahdiblah");})
 
-// router.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
-// router.get('/error', (req, res) => res.send("error logging in"));
+//router.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
+ router.get('/error', (req, res) => res.send("error logging in"));
 
 
 //this is the authenticated user section.
