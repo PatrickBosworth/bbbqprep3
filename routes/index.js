@@ -30,6 +30,8 @@ router.use('/cavi', passport.authcheck, caviRoutes);
 
 //all the  login routes. should probably be relocated under /auth at some point to keep this file neater.
 
+router.get('/authfailed', function(req,res) { res.render('authfailed');}) 
+
 router.get('/login', function (req, res) {   res.render('login');})
 
 router.get('/logout', function (req, res){

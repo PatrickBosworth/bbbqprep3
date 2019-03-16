@@ -48,7 +48,7 @@ passport.admincheck = function(req, res, next) {
   else
   { 
     console.log("admin check failed")
-    res.redirect('/error')
+    res.redirect('/authfailed')
   }
 }
 
