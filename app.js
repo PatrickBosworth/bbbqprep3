@@ -1,6 +1,8 @@
 var express = require('express');
 var session = require('express-session');
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var util = require('util');
 var bodyParser = require('body-parser');
 const path = require('path');
@@ -20,6 +22,13 @@ var sessiondbconf = require('./config/sessionStoreDBConfig');
 // use Pug
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
+
+//enable socket.io
+io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+      console.log('message: ' + msg);
+    });
+  });
 
 // set static directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -48,10 +57,13 @@ app.use(passport.session());
 // app.use(flash());
 
 
+
+
+
 app.use('/', routes);
 
 
 
-app.listen(3000, () => {
+http.listen(3000, () => {
     console.log('express started on port 3000');
 });
