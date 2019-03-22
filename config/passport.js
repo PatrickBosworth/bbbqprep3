@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local');
 const bcrypt = require('bcrypt-nodejs');
 
 //const Users = mongoose.model('Users');
-var {User} = require('../models/user');
+var {User} = require('../models/campaigns');
 
 
 
@@ -48,7 +48,7 @@ passport.admincheck = function(req, res, next) {
   else
   { 
     console.log("admin check failed")
-    res.redirect('/cavi')
+    res.redirect('/CAVI')
   }
 }
 

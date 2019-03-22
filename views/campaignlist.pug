@@ -1,0 +1,31 @@
+doctype html
+html
+	head
+	title Pug User List
+	link(href='https://www.w3schools.com/w3css/4/w3.css', rel='stylesheet')
+	link(href='/css/pbstyle.css', rel='stylesheet')
+	style.
+	body.w3-white
+		.w3-twothird.w3-row-padding
+			h5 Campaignlist
+			table#campaigntable.w3-table-all.w3-hoverable
+				tbody
+					tr
+						th Campaign ID
+						th Campaign Name
+						th Description
+						th Organistaion
+						th 
+						th 
+				each n in campaignlist
+					tr
+						td= n.campaignid
+						td=n.campaignName
+						td= n.campaignDescription
+						td= n.organisation
+						td
+							a(href='/user/update?id='+n.userid) Update
+						td
+							a(href='/user/delete?id='+n.userid) Delete	
+			a#buttonblock(href="/user/create", type='button',class="w3-button w3-green" style="width:200px") New User
+			a#buttonblock(href="/logout", type='button',class="w3-button w3-red" style="width:200px") Log Out

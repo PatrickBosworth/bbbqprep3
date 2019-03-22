@@ -14,6 +14,7 @@ router.use(bodyParser.urlencoded( { extended: false }))
 //define path to routes
 var userRoutes = require('./userRoutes');
 var caviRoutes = require('./caviRoutes');
+var campaignRoutes = require('./campaignRoutes');
 
 //route path for testing.
 router.get('/', function(req, res) { console.log(req.sessionID); res.send("blahdiblah");})
@@ -27,6 +28,9 @@ router.use('/user', passport.authcheck, passport.admincheck, userRoutes);
 
 //this is the authenticated cavi section.
 router.use('/cavi', passport.authcheck, caviRoutes);
+
+//this is the authenticated campaign section - for admin users.
+router.use('/campaign', passport.authcheck, passport.admincheck, campaignRoutes);
 
 //all the  login routes. should probably be relocated under /auth at some point to keep this file neater.
 
