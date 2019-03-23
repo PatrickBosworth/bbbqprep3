@@ -33,11 +33,29 @@ campaign.campaignlist = function (req, res) {
     }
     }
 
-campaign.create = function(req, res) {};
+campaign.createget = function(req, res) {
+    res.render('newcampaign');
+};
+
+campaign.createpost = function(req, res) {
+    var campaign = new Campaign({
+        campaignName: req.body.campaignname,
+        campaignDescription: req.body.description,
+        organisation: req.user.organisation
+    })
+    campaign.save().then((doc)=> {
+        res.redirect('/campaign/campaignlist');
+    }, (e) => { res.status(400).send(e);
+    })
+};
+
+campaign.updateget = function(req, res) {};
+
+campaign.updatepost = function(req, res) {};
 
 campaign.delete = function(req, res) {};
 
-campaign.update = function(req, res) {};
+
 
 
 module.exports = campaign;

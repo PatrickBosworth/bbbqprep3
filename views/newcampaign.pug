@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title New Campaign Page
+    link(href='https://www.w3schools.com/w3css/4/w3.css', rel='stylesheet')
+    link(href='/css/pbstyle.css', rel='stylesheet')
+    style.
+  body
+    form(action='/campaign/create' method="post")
+      .container
+        label(for='cname')
+        b Define new Campaign Name
+        input(name='campaignname', required='', type='text', placeholder='Create a campaign name')
+        b Description
+        input(name='description', required='', type='text', placeholder='Campaign Description')
+        button(type='submit') Create Campaign
+      .container(style='background-color:#f1f1f1')
+        a.cancelbtn(href="/campaign/campaignlist", type='button') Cancel
