@@ -1,7 +1,8 @@
 const express = require('express');
 const campaign = express.Router();
 var mongoose = require('mongoose');
-
+var {Campaign} = require('../models/campaigns');
+var campaignController = require('../controllers/campaigncontroller')
 
 mongoose.Promise = Promise;
 //mongoose.set('debug', true);
@@ -12,7 +13,10 @@ campaign.use(bodyParser.urlencoded( { extended: false }));
 
 campaign.get('/', function(req, res) { console.log(req.sessionID); res.send("campaign blahdiblah");})
 
-campaign.get('/campaignlist', function(req,res) {console.log('campaignlist here'); res.render('campaignlist')})
+//campaign.get('/campaignlist', function(req,res) {console.log(res); res.render('campaignlist')})
+
+campaign.get('/campaignlist', campaignController.campaignlist);
+
 
 campaign.get('/wait', function(req, res) { res.render('CAVIWait');})
 

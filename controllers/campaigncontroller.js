@@ -18,19 +18,26 @@ campaign.campaignlist = function (req, res) {
         
            })
         .catch(() => {
-            res.send("Sorry, no users!");
+            res.send("Sorry, no campaigns!");
         }) 
     }
     else
     {
-        User.find()
-        .then((userlist) => { res.render('userlist', {title: "Registrations List", userlist})
+        Campaign.find()
+        .then((campaignlist) => { res.render('campaignlist', {title: "Registrations List", campaignlist})
         
            })
         .catch(() => {
-            res.send("Sorry, no users!");
+            res.send("Sorry, no campaigns!");
         }) 
     }
     }
+
+campaign.create = function(req, res) {};
+
+campaign.delete = function(req, res) {};
+
+campaign.update = function(req, res) {};
+
 
 module.exports = campaign;

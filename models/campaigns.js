@@ -18,7 +18,7 @@ CampaignSchema = mongoose.Schema({
 
 })
 
-//UserSchema.plugin(AutoIncrement, {inc_field: 'userid'});
+
 CampaignSchema.plugin(AutoIncrement.plugin, {model: "Campaign", field: "campaignid", startAt: 100000001} );
 var Campaign = mongoose.model("Campaign", CampaignSchema);
 
