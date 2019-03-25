@@ -14,6 +14,8 @@ var morgan = require('morgan');
 var LocalStrategy = require('passport-local').Strategy;
 //var flash = require('connect-flash');
 
+var fileUpload = require('express-fileupload');
+
 //require and configure session database config
 var MongoDBStore = require('connect-mongodb-session')(session);
 var sessiondbconf = require('./config/sessionStoreDBConfig');
@@ -36,6 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //enable morgan logging
 //app.use(morgan('combined'));
 
+//allow fileuploading
+app.use(fileUpload());
 
 //express.session must be enabled
 app.use(session({

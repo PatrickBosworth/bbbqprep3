@@ -3,6 +3,7 @@ const campaign = express.Router();
 var mongoose = require('mongoose');
 var {Campaign} = require('../models/campaigns');
 var campaignController = require('../controllers/campaigncontroller')
+var recordController = require('../controllers/recordcontroller')
 
 mongoose.Promise = Promise;
 //mongoose.set('debug', true);
@@ -28,6 +29,10 @@ campaign.post('/update', campaignController.updatepost);
 campaign.get('/delete', campaignController.delete);
 
 campaign.get('/wait', function(req, res) { res.render('CAVIWait');})
+
+campaign.get('/recordlist', recordController.recordlist);
+
+campaign.post('/recordimport', recordController.recordimport);
 
 //cavi.get('/campaign/listinterviewees', function (req, res) {console.log("interviewer list")})
 

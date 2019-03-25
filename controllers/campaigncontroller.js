@@ -53,7 +53,16 @@ campaign.updateget = function(req, res) {};
 
 campaign.updatepost = function(req, res) {};
 
-campaign.delete = function(req, res) {};
+campaign.delete = function(req, res) {
+    console.log(req.query.id)
+    Campaign.findOneAndDelete({campaignid: req.query.id}, (err, campaigndetails) => {
+        if(err) {
+            res.render('error', {})
+        } else {
+            res.redirect('/campaign/campaignlist')
+        }
+    })
+};
 
 
 
