@@ -60,9 +60,17 @@ var RecordSchema = mongoose.Schema({
             },
             message: 'LinkedIn must start with https://www.linkedin.com/'
         }
+    },
+    email: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        unique: true,
+        required: false,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        }
+    
     }
-
-}
 );
 
 RecordSchema.plugin(AutoIncrement.plugin, {model: "Record", field: "recordid", startAt: 100000001} );

@@ -34,6 +34,12 @@ campaign.get('/recordlist', recordController.recordlist);
 
 campaign.post('/recordimport', recordController.recordimport);
 
+campaign.get('/recordcreate', recordController.recordcreateget);
+
+campaign.post('/recordcreate', recordController.recordcreatepost);
+
+campaign.get('/recorddelete', recordController.recorddelete);
+
 //cavi.get('/campaign/listinterviewees', function (req, res) {console.log("interviewer list")})
 
 //cavi.

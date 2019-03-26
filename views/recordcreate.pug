@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title New Record Page
+    link(href='https://www.w3schools.com/w3css/4/w3.css', rel='stylesheet')
+    link(href='/css/pbstyle.css', rel='stylesheet')
+    style.
+  body
+    form(action='/campaign/recordcreate' method="post")
+      .container
+        label(for='uname')
+        b Firstname
+        input(name='firstname', required='', type='text', placeholder='Enter First Name')
+        b Lastname
+        input(name='lastname', required='', type='text', placeholder='Enter Last Name')
+        label(for='psw')
+        b Camapign Name
+        input(name='campaign', required='', type='text', placeholder='Enter Campaign')
+        b Mobile Phone Number
+        input(name='mobilephonenumber', required='', type='text', placeholder='Enter Mobile No.')
+        button(type='submit') Create Record
+      .container(style='background-color:#f1f1f1')
+        a.cancelbtn(href="/camapign/recordlist", type='button') Cancel

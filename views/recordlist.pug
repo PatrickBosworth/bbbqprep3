@@ -15,10 +15,10 @@ html
 						th Firstname
 						th Lastname
 						th Mobile No.
+						th Email
 						th Twitter
 						th Facebook
 						th LinkedIn
-						th Update
 						th Delete                       
 				each n in recordlist
 					tr
@@ -26,11 +26,10 @@ html
 						td=n.firstName
 						td=n.lastName
 						td=n.mobilePhoneNumber
+						td=n.email
 						td=n.twitter
 						td=n.facebook
 						td
-						td
-							a(href='/campaign/recordupdate?id='+n.recordid) Update
 						td
 							a(href='/campaign/recorddelete?id='+n.recordid) Delete	
 			a#buttonblock(href="/campaign/recordcreate", type='button',class="w3-button w3-green" style="width:200px") New Record

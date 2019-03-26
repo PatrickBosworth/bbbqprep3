@@ -30,11 +30,39 @@ record.recordlist = function (req, res) {
         }) 
     }
     }
-record.recordcreate = function(req, res) {}
+record.recordcreateget = function(req, res) {
+    res.render('recordcreate')
+}
 
-record.recorddelete = function(req, res) {}
+record.recordcreatepost = function(req, res) {
+    var record = new Record({
+        firstName: req.body.firstname,
+        lastName: req.body.lastname,
+        campaign: req.body.campaign,
+        organisation: req.user.organisation,
+        mobilePhoneNumber:req.body.mobilephonenumber,
+        email:req.body.email,
+        facebook: req.body.facebook,
+        twitter: req.body.twitter,
+    })
+    record.save().then((record)=> {
+        res.redirect('/campaign/recordlist');
+    }, (e) => {
+        res.status(400).send(e);
+    })
+}
 
-record.recordupdate = function(req, res) {}
+record.recorddelete = function(req, res) {
+    Record.findOneAndDelete({recordid: req.query.id}, (err, recorddetails) => {
+        if (err) {
+            res.render('error', [])
+        } else {
+            res.redirect('/campaign/recordlist')
+        }
+    })
+}
+
+//record.recordupdate = function(req, res) {}
 
 record.recordimport = function (req, res) {
     if (!req.files)

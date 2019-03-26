@@ -12,7 +12,7 @@ cavi.use(bodyParser.urlencoded( { extended: false }));
 
 cavi.get('/', function(req, res) { console.log(req.sessionID); res.send("blahdiblah");})
 
-cavi.get('/wait', function(req, res) { res.render('CAVIWait');})
+cavi.get('/wait', function(req, res) { res.render('CAVIWait2');})
 
 
 module.exports = cavi;
