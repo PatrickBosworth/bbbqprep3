@@ -14,5 +14,11 @@ cavi.get('/', function(req, res) { console.log(req.sessionID); res.send("blahdib
 
 cavi.get('/wait', function(req, res) { res.render('CAVIWait2');})
 
+cavi.get('/register', function(req, res) {
+    let recordid = req.query.recordid
+    console.log(recordid);
+    res.send("all good here");
+}
+);
 
 module.exports = cavi;
