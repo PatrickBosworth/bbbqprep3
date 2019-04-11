@@ -13,6 +13,8 @@ var uuid = require('uuid/v4');
 var morgan = require('morgan');
 var LocalStrategy = require('passport-local').Strategy;
 //var flash = require('connect-flash');
+var sharedsession = require("express-socket.io-session");
+
 
 var fileUpload = require('express-fileupload');
 
@@ -25,16 +27,6 @@ var sessiondbconf = require('./config/sessionStoreDBConfig');
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
-//set socketio as a retrieveable parameter
-//app.set('socektio', io);
-io.on('connection', function(socket) {
-    console.log("a user connected to a socket " + socket)
-    socket.on('getcall',(socket)=> {
-        console.log("this is the socket stuff " + socket);
-    })
-
-})
-
 
 
 // set static directory
@@ -46,8 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //allow fileuploading
 app.use(fileUpload());
 
-//express.session must be enabled
-app.use(session({
+//define sesssion parameters
+var session = require('express-session')({
     genid: (req) => { 
         //console.log("inside the session middleware")
         //console.log(req.sessionID);
@@ -58,7 +50,27 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
     store: sessiondbconf.store
-}));
+})
+
+//express.session must be enabled
+app.use(session);
+
+
+
+io.use(sharedsession(session));
+
+//set socketio as a retrieveable parameter
+//app.set('socektio', io);
+io.on('connection', function(socket) {
+    console.log("a user connected to a socket " + util.inspect(socket.handshake.session.username))
+
+    socket.on('getcall',(socket)=> {
+        console.log(socket);
+    })
+
+})
+
+
 app.use(express.urlencoded({ extended: true })); // express body-parser
 
 

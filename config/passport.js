@@ -27,6 +27,10 @@ passport.use(new LocalStrategy({passReqToCallback: true},
         //console.log(user);
         if (req.body.orgname != user.organisation) { return done(null, false); }
         if (!bcrypt.compareSync(password, user.password)) { return done(null, false); }
+        
+        req.session.username = username;
+        console.log(JSON.stringify(user));
+        console.log("this is the session id " + JSON.stringify(req.session));
         return done(null, user);
       });
   }
