@@ -8,6 +8,7 @@ var LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 var util = require('util');
 var passportauth = require('../config/passport');
+var io = require('socket.io');
 
 router.use(bodyParser.urlencoded( { extended: false }))
 
@@ -18,6 +19,12 @@ var campaignRoutes = require('./campaignRoutes');
 
 //route path for testing.
 router.get('/', function(req, res) { console.log(req.sessionID); res.send("blahdiblah");})
+
+//more testing
+router.get('/atest', (req, res) => {
+  console.log(req.sessionID)
+  res.send("more blah")
+})
 
 //router.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
  router.get('/error', (req, res) => res.send("error logging in"));

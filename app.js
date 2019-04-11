@@ -25,12 +25,17 @@ var sessiondbconf = require('./config/sessionStoreDBConfig');
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
-//enable socket.io
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-      console.log('message: ' + msg);
-    });
-  });
+//set socketio as a retrieveable parameter
+//app.set('socektio', io);
+io.on('connection', function(socket) {
+    console.log("a user connected to a socket " + socket)
+    socket.on('getcall',(socket)=> {
+        console.log("this is the socket stuff " + socket);
+    })
+
+})
+
+
 
 // set static directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -44,8 +49,9 @@ app.use(fileUpload());
 //express.session must be enabled
 app.use(session({
     genid: (req) => { 
-        console.log("inside the session middleware")
-        console.log(req.sessionID);
+        //console.log("inside the session middleware")
+        //console.log(req.sessionID);
+        console.log("session is " );
         return uuid();
     },
     secret: 'keyboard cat',

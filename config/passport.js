@@ -20,8 +20,8 @@ passport.deserializeUser(function(id, cb){
 
 passport.use(new LocalStrategy({passReqToCallback: true},
   function(req, username, password,  done) {
-       console.log(req.body.orgname);
-       console.log(req.body.password);
+      // console.log(req.body.orgname);
+      // console.log(req.body.password);
       User.findOne({ username: username }, function(err, user) { if (err) {return done(err); }
         if (!user) { return done(null, false); }
         //console.log(user);
@@ -42,12 +42,12 @@ passport.authcheck = function (req, res, next) {
 
 passport.admincheck = function(req, res, next) {
   if (req.user.adminUser === true) { 
-    console.log("admin check passed")
+  //  console.log("admin check passed")
     return next()
   }
   else
   { 
-    console.log("admin check failed")
+  //  console.log("admin check failed")
     res.redirect('/CAVI')
   }
 }
