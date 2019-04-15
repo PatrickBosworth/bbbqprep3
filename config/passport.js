@@ -29,8 +29,8 @@ passport.use(new LocalStrategy({passReqToCallback: true},
         if (!bcrypt.compareSync(password, user.password)) { return done(null, false); }
         
         req.session.username = username;
-        console.log(JSON.stringify(user));
-        console.log("this is the session id " + JSON.stringify(req.session));
+       // console.log(JSON.stringify(user));
+       // console.log("this is the session id " + JSON.stringify(req.session));
         return done(null, user);
       });
   }

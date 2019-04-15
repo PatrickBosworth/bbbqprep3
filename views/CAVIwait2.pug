@@ -1,8 +1,12 @@
 doctype html
 html
     head
-    body
-        form
-            button#getcall(type='button') get call
+        title CAVI Page
+        link(href='https://www.w3schools.com/w3css/4/w3.css', rel='stylesheet')
+        link(href='/css/pbstyle.css', rel='stylesheet')
+    style.
+    body(align="left")
+            a#getcall(type='button', class="w3-button w3-green", style="width:200px") Get Call
+            a#buttonblock(href="/logout", type='button',class="w3-button w3-red", style="width:200px") Log Out
     script(src='/socket.io/socket.io.js')
     script(src = '/js/script.js')

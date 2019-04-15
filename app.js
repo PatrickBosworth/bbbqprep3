@@ -43,12 +43,13 @@ var session = require('express-session')({
     genid: (req) => { 
         //console.log("inside the session middleware")
         //console.log(req.sessionID);
-        console.log("session is " );
+      //  console.log("session is " );
         return uuid();
     },
     secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true,
+    cookie: { maxAge: 6000000 },
     store: sessiondbconf.store
 })
 
@@ -62,10 +63,15 @@ io.use(sharedsession(session));
 //set socketio as a retrieveable parameter
 //app.set('socektio', io);
 io.on('connection', function(socket) {
-    console.log("a user connected to a socket " + util.inspect(socket.handshake.session.username))
+   // console.log("a user connected to a socket " + util.inspect(socket.handshake.session))
 
-    socket.on('getcall',(socket)=> {
-        console.log(socket);
+    socket.on('getcall',()=> {
+      //  console.log(socket.handshake.session.username + " and " + socket.handshake.sessionID);
+        socket.handshake.session.userdata = "blah";
+        socket.handshake.session.socketid = socket.id;
+        socket.handshake.session.save();
+
+
     })
 
 })

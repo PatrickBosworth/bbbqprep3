@@ -4,6 +4,7 @@ var userController = require('../controllers/usercontroller');
 var mongoose = require('mongoose');
 var {Campaign} = require('../models/campaigns');
 var encrypt = require('../bcrypt/bcrypt');
+var io = require('socket.io');
 
 
 

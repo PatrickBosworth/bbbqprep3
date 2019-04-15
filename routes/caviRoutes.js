@@ -19,10 +19,10 @@ cavi.use(bodyParser.urlencoded( { extended: false }));
 
     
 cavi.get('/', function(req, res, next) { 
-    console.log("session id is " + req.sessionID); 
+    //console.log("route: session id is " + req.sessionID); 
     waitingAgents.push(req.sessionID);
    // var io = app.get('socketio');
-    console.log(waitingAgents)
+   // console.log(waitingAgents)
 
     res.render("CAVIwait2");
    
@@ -41,8 +41,13 @@ cavi.get('/register', function(req, res) {
     res.send("all good here");
 });
 
+cavi.get('/sendtoclient', function req, res) {
+    let socketid = req.query.socketid;
+    let message = req.query.message;
+    let messagecontent = req.query.messsagecontent;
+    io.to(socketid).emit(message, messagecontent);
 
-
+}
 
 
 

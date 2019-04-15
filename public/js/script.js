@@ -1,7 +1,9 @@
 console.log("javascript file working")
 var socket = io();
 
-
+socket.on('message', (message) => {
+    console.log(message)
+})
 
 
 
