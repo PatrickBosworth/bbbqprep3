@@ -41,13 +41,13 @@ cavi.get('/register', function(req, res) {
     res.send("all good here");
 });
 
-cavi.get('/sendtoclient', function req, res) {
+cavi.get('/sendtoclient', function( req, res) {
     let socketid = req.query.socketid;
     let message = req.query.message;
     let messagecontent = req.query.messsagecontent;
     io.to(socketid).emit(message, messagecontent);
 
-}
+})
 
 
 
