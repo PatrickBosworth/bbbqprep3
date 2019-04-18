@@ -6,7 +6,6 @@ socket.on('message', (message) => {
 })
 
 
-
 var getcallbutton = document.querySelector('#getcall')
 
 getcallbutton.addEventListener('click', () => {

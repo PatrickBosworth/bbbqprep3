@@ -1,10 +1,13 @@
 const express = require('express');
 var app = express();
-var http = require('http').Server(app);
+//var http = require('http').Server(app);
 const cavi = express.Router();
 var mongoose = require('mongoose');
-var io = require ('socket.io')(http);
-//app.set('socketio', io);
+var {Session} = require('../models/sessions')
+var util = require('util');
+const io = require('../socket.js').getio();
+
+
 
 var waitingAgents = [];
 
@@ -28,9 +31,9 @@ cavi.get('/', function(req, res, next) {
    
 })
 
-// io.on('connection', function(socket) {
-//      console.log("a user connected to a socket")
-        
+io.on('connection', function(socket) {
+     console.log("a user connected on socket ")
+})
  
 
 cavi.get('/wait', function(req, res) { res.render('CAVIWait2');})
@@ -42,14 +45,27 @@ cavi.get('/register', function(req, res) {
 });
 
 cavi.get('/sendtoclient', function( req, res) {
-    let socketid = req.query.socketid;
-    let message = req.query.message;
-    let messagecontent = req.query.messsagecontent;
-    io.to(socketid).emit(message, messagecontent);
+    let destname = req.query.destname;
+    Session.findOne({"session.username": destname}, (err, result) => { 
+       if (err) {console.log(err)}
+        destsocket =result.session.socketid; 
+        io.sockets.connected[destsocket].emit("message", "hello there from the cavi route page");
+        console.log("this is the socket I am sending to " + destsocket);
+    })
+    console.log(io.engine.clients)
+res.send(util.inspect(io.server));
 
 })
 
-
+// user.updateget = function (req,res) {
+//     User.findOne({userid: req.query.id}, (err, userdetails) => { 
+//         if (err) {
+//             res.render('error', {})
+//         } else {
+//            res.render('edituser', {userdetails});
+//             }
+//         });    
+// }
 
 
 

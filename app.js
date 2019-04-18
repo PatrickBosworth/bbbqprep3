@@ -1,8 +1,10 @@
 var express = require('express');
 var session = require('express-session');
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+//var http = require('http').Server(app);
+//var io = require('socket.io')(http);
+const server = require('http').createServer(app);
+const io = require('./socket.js').init(server);
 var util = require('util');
 var bodyParser = require('body-parser');
 const path = require('path');
@@ -13,6 +15,7 @@ var uuid = require('uuid/v4');
 var morgan = require('morgan');
 var LocalStrategy = require('passport-local').Strategy;
 //var flash = require('connect-flash');
+var {Session} = require('./models/sessions')
 var sharedsession = require("express-socket.io-session");
 
 
@@ -27,6 +30,10 @@ var sessiondbconf = require('./config/sessionStoreDBConfig');
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
+//store socket.io
+app.set('socketio', io);
+
+console.log("socketio here: " +app.get('socketio'));
 
 
 // set static directory
@@ -66,15 +73,30 @@ io.on('connection', function(socket) {
    // console.log("a user connected to a socket " + util.inspect(socket.handshake.session))
 
     socket.on('getcall',()=> {
-      //  console.log(socket.handshake.session.username + " and " + socket.handshake.sessionID);
+        console.log("we received a message from " + socket.handshake.session.username + " on session " + socket.handshake.sessionID + " and socket " + socket.id);
         socket.handshake.session.userdata = "blah";
         socket.handshake.session.socketid = socket.id;
         socket.handshake.session.save();
-
+       // console.log("we received a message from " + socket.handshake.socketid);
+    //   io.to(socket.id).emit("message", "what ho!");
+       io.sockets.connected[socket.id].emit("message", "what ho!");
 
     })
 
 })
+
+
+
+app.get('/sendtoclient', function( req, res) {
+  let destname = req.query.destname;
+  Session.findOne({"session.username": destname}, (err, result) => { 
+     // console.log( result.session.socketid)
+     if (err) {console.log(err)}
+      destsocket =result.session.socketid; 
+      io.to(destsocket).emit("message", "ssent socket message - hello there");
+      console.log("this is the socket I am sending to " + destsocket);
+  })
+})  
 
 
 app.use(express.urlencoded({ extended: true })); // express body-parser
@@ -92,6 +114,6 @@ app.use('/', routes);
 
 
 
-http.listen(3000, () => {
+server.listen(3000, () => {
     console.log('express started on port 3000');
 });
