@@ -32,7 +32,7 @@ cavi.get('/', function(req, res, next) {
 })
 
 io.on('connection', function(socket) {
-     console.log("a user connected on socket ")
+     console.log("a user connected on socket " + socket.sockets)
 })
  
 
@@ -44,31 +44,27 @@ cavi.get('/register', function(req, res) {
     res.send("all good here");
 });
 
+
+
 cavi.get('/sendtoclient', function( req, res) {
     let destname = req.query.destname;
-    Session.findOne({"session.username": destname}, (err, result) => { 
-       if (err) {console.log(err)}
+    Session.findOne({"session.username": destname})
+        .then(function(err, result) {
+        if (!result) { res.send("no user")} 
+        // console.log(result);
         destsocket =result.session.socketid; 
-        io.sockets.connected[destsocket].emit("message", "hello there from the cavi route page");
-        console.log("this is the socket I am sending to " + destsocket);
+        //console.log("destsocket: " + destsocket);
+        if (destsocket = null) { res.send("no session")
+              }else {
+            io.to(destsocket).emit("message", "hello there " + result.session.username + " from the cavi route page");
+           // console.log("this is the socket I am sending to " + destsocket);
+            res.send(util.inspect(io.server));
+              }
+        })
+    .catch (() => {
+        res.send("sorry no session");
     })
-    console.log(io.engine.clients)
-res.send(util.inspect(io.server));
-
 })
-
-// user.updateget = function (req,res) {
-//     User.findOne({userid: req.query.id}, (err, userdetails) => { 
-//         if (err) {
-//             res.render('error', {})
-//         } else {
-//            res.render('edituser', {userdetails});
-//             }
-//         });    
-// }
-
-
-
 
 
 module.exports = cavi;

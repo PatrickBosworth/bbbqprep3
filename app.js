@@ -54,9 +54,9 @@ var session = require('express-session')({
         return uuid();
     },
     secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 6000000 },
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 600000000 },
     store: sessiondbconf.store
 })
 
@@ -79,7 +79,7 @@ io.on('connection', function(socket) {
         socket.handshake.session.save();
        // console.log("we received a message from " + socket.handshake.socketid);
     //   io.to(socket.id).emit("message", "what ho!");
-       io.sockets.connected[socket.id].emit("message", "what ho!");
+       io.sockets.connected[socket.id].emit("message", "what ho!" + socket.handshake.session.username);
 
     })
 
@@ -87,16 +87,6 @@ io.on('connection', function(socket) {
 
 
 
-app.get('/sendtoclient', function( req, res) {
-  let destname = req.query.destname;
-  Session.findOne({"session.username": destname}, (err, result) => { 
-     // console.log( result.session.socketid)
-     if (err) {console.log(err)}
-      destsocket =result.session.socketid; 
-      io.to(destsocket).emit("message", "ssent socket message - hello there");
-      console.log("this is the socket I am sending to " + destsocket);
-  })
-})  
 
 
 app.use(express.urlencoded({ extended: true })); // express body-parser
