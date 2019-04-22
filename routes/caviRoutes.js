@@ -32,7 +32,8 @@ cavi.get('/', function(req, res, next) {
 })
 
 io.on('connection', function(socket) {
-     console.log("a user connected on socket " + socket.sockets)
+     console.log("a user connected on socket " + util.inspect(socket.handshake.session.socketid));
+    // console.log("the sessions are " + util.inspect(socket.handshake));
 })
  
 
@@ -48,20 +49,26 @@ cavi.get('/register', function(req, res) {
 
 cavi.get('/sendtoclient', function( req, res) {
     let destname = req.query.destname;
+    var destsocket
     Session.findOne({"session.username": destname})
-        .then(function(err, result) {
-        if (!result) { res.send("no user")} 
-        // console.log(result);
-        destsocket =result.session.socketid; 
-        //console.log("destsocket: " + destsocket);
-        if (destsocket = null) { res.send("no session")
+        .then(function(result) {
+           // console.log("result of query" + result);
+            if (!result) { res.send("no user")} 
+        
+        destsocket = result.session.socketid; 
+        console.log("destsocket: " + destsocket);
+        if (destsocket == "") { res.send("no session")
               }else {
-            io.to(destsocket).emit("message", "hello there " + result.session.username + " from the cavi route page");
+            console.log("made it to the sending part!")
+            console.log("socket to sendto is: " + destsocket + " blah")
+           //     io.to(destsocket).emit("message", "hello there " + result.session.username + " from the cavi route page");
+           io.sockets.connected[destsocket].emit("message", "what fucking marvellous!");
            // console.log("this is the socket I am sending to " + destsocket);
-            res.send(util.inspect(io.server));
+            res.send(util.inspect("result is " + destsocket));
               }
         })
-    .catch (() => {
+    .catch ((error) => {
+        console.log(error);
         res.send("sorry no session");
     })
 })

@@ -5,6 +5,10 @@ socket.on('message', (message) => {
     console.log(message)
 })
 
+// socket.on('intiiate', (message) => {
+//     console.log("initiate")
+// })
+
 
 var getcallbutton = document.querySelector('#getcall')
 
