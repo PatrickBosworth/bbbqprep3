@@ -61,8 +61,8 @@ cavi.get('/sendtoclient', function( req, res) {
               }else {
             console.log("made it to the sending part!")
             console.log("socket to sendto is: " + destsocket + " blah")
-           //     io.to(destsocket).emit("message", "hello there " + result.session.username + " from the cavi route page");
-           io.sockets.connected[destsocket].emit("message", "what fucking marvellous!");
+            io.sockets.connected[destsocket].emit('message',  "what fucking marvellous! news 1");
+           io.sockets.connected[destsocket].emit('initiate', "what fucking marvellous! news 2");
            // console.log("this is the socket I am sending to " + destsocket);
             res.send(util.inspect("result is " + destsocket));
               }
