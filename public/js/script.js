@@ -1,12 +1,12 @@
 console.log("javascript file working")
 var socket = io();
 
-// socket.on('message', (message) => {
-//     console.log(message)
-// })
+socket.on('message', (message) => {
+    console.log(message)
+})
 
-socket.on('intiiate', (message) => {
-    console.log("here is an initiate message")
+socket.on('init', (message) => {
+    console.log("here is an initiate message" + message)
 })
 
 

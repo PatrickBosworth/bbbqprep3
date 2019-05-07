@@ -67,8 +67,6 @@ app.use(session);
 
 io.use(sharedsession(session));
 
-//set socketio as a retrieveable parameter
-//app.set('socektio', io);
 io.on('connection', function(socket) {
    // console.log("a user connected to a socket " + util.inspect(socket.handshake.session))
 
